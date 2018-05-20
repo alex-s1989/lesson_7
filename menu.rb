@@ -18,6 +18,8 @@ class Menu
   MOVE_AHEAD = 14
   MOVE_BACK = 15
   SHOW_STATIONS = 16
+  TAKE_PLACE = 17
+  TAKE_VOLUME = 18
   EXIT = 0
   
   attr_reader :railway
@@ -32,8 +34,8 @@ class Menu
     puts "2. Создать поезд"
     puts "3. Создать маршрут"
     puts "4. Создать вагон"
-    puts "5. Список станций "
-    puts "6. Список поездов с вагонами"
+    puts "5. Список станций"
+    puts "6. Список поездов"
     puts "7. Список маршрутов"
     puts "8. Список вагонов"
     puts "9. Добавить промежуточную станцию в маршрут"
@@ -43,7 +45,9 @@ class Menu
     puts "13. Отцепить вагон от поезда"
     puts "14. Переместить поезд на следующую станцию"
     puts "15. Переместить поезд на предыдущую станцию"
-    puts "16. Проссмотреть список станций и список поездов на станции"
+    puts "16. Проссмотреть информацию о составах на станциях"
+    puts "17. Занять место в пассажирском вагоне"
+    puts "18. Занять объем в грузовом вагоне"
     puts "0. Выход"
   end
   
@@ -70,6 +74,8 @@ class Menu
         when MOVE_AHEAD then move_ahead
         when MOVE_BACK then move_back
         when SHOW_STATIONS then show_stations
+        when TAKE_PLACE then take_places
+        when TAKE_VOLUME then take_volume
         when EXIT then break
         end
       rescue => e
@@ -126,12 +132,30 @@ class Menu
       number_of_places = gets.chomp.to_i
       railway.create_passenger_wagon(wagon_number, number_of_places: number_of_places)
     elsif type == 1
-      puts 'Введите объем, который должен быть у создаваемого вагона (от 20 до 150 м*3):'
+      puts 'Введите объем, который должен быть у создаваемого вагона (от 5 до 150 м*3):'
       whole_volume = gets.chomp.to_i
-      # raise 'не тот объем' if whole_volume < 20 || whole_volume > 150
+      raise 'допустимый объем вагона 5..150 м*3' if whole_volume <= 5 || whole_volume >= 150
       railway.create_cargo_wagon(wagon_number, whole_volume: whole_volume)
     else raise 'Введен неправильный индекс при выборе типа вагона'
     end
+  end
+  
+  def take_places
+    puts 'Введите индекс вагона, в котором нужно занять место'
+    railway.wagons_with_index
+    wagon_index = gets.chomp.to_i
+    puts 'Введите номер места в вагоне, которые нужно занять'
+    index = gets.chomp.to_i
+    railway.take_places(wagon_index, index)
+  end
+
+  def take_volume
+    puts 'Введите индекс вагона, в котором нужно занять объем'
+    railway.wagons_with_index
+    wagon_index = gets.chomp.to_i
+    puts 'Введите количество объема, которые нужно занять'
+    volume = gets.chomp.to_i
+    railway.take_volume(wagon_index, volume)
   end
   
   def stations_with_index

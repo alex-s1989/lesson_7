@@ -26,7 +26,7 @@ class Train
   end
   
   def inc_speed(speed)
-    return 'Speed is less than zero' if self.speed + speed < 0
+    return 'Скорость меньше нуля' if self.speed + speed < 0
     
     self.speed += speed
   end
@@ -55,7 +55,7 @@ class Train
   end
 
   def move_ahead
-    return 'last station' if @index == @route.list_stations.size - 1
+    return 'конечная станция' if @index == @route.list_stations.size - 1
     
     departure_train
     @index += 1
@@ -63,7 +63,7 @@ class Train
   end
 
   def move_back
-    return 'starting station' if @index == 0
+    return 'начальная станция' if @index == 0
     
     departure_train
     @index -= 1

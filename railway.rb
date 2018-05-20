@@ -100,7 +100,11 @@ class Railway
     
     puts "Станция: #{station}"
     puts '  Поезда:'
-    station.each_train { |train| puts train }
+    station.each_train do |train|
+      puts train
+      puts '    вагоны:'
+      train.each_wagon { |wagon| puts wagon }
+    end
   end
   
   def stations_with_index
@@ -114,8 +118,6 @@ class Railway
     
     trains.each_with_index do |train, index|
       puts " #{index} - #{train}"
-      puts '    вагоны:'
-      train.each_wagon { |wagon| puts wagon }
     end
   end
 
@@ -131,6 +133,16 @@ class Railway
 
   def train_by_index(index)
     trains[index]
+  end
+  
+  def take_places(wagon_index, index)
+    wagon = wagon_by_index(wagon_index)
+    wagon.take_places(index)
+  end
+
+  def take_volume(wagon_index, volume)
+    wagon = wagon_by_index(wagon_index)
+    wagon.take_volume(volume)
   end
   
   private
