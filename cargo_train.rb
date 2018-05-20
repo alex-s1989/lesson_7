@@ -10,4 +10,8 @@ class CargoTrain < Train
       puts 'Тип вагона и тип поезда должны совпадать'
     end
   end
+  
+  def type
+    ' - грузовой поезд'
+  end
 end

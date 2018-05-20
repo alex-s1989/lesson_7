@@ -10,4 +10,9 @@ class PassengerTrain < Train
       puts 'Тип вагона и тип поезда должны совпадать'
     end
   end
+
+  def type
+    ' - пассажирский поезд'
+  end
+  
 end

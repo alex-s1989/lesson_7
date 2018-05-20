@@ -83,11 +83,15 @@ class Train
   end
   
   def to_s
-    "#{train_number}, количество вагонов #{wagons.count}"
+    "#{type} №#{train_number}, в составе вагонов: #{wagons.count}"
   end
 
   def wagons_with_index
-    wagons.each_with_index { |wagon, index| puts "#{index} - #{wagon}"}
+    wagons.each_with_index { |wagon, index| puts "#{index} -  #{wagon}"}
+  end
+
+  def each_wagon
+    wagons.each { |wagon| yield wagon }
   end
   
   protected

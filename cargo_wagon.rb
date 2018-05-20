@@ -17,7 +17,7 @@ class CargoWagon < Wagon
   end
   
   def to_s
-    "Грузовой вагон №#{number}"
+    "     - грузовой вагон №#{number}, свободный объем в вагоне: #{available_volume} m*3, занятый объем: #{taken_volume} m*3"
   end
   
   private

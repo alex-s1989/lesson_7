@@ -100,9 +100,7 @@ class Railway
     
     puts "Станция: #{station}"
     puts '  Поезда:'
-    station.trains.each do |train|
-      puts train
-    end
+    station.each_train { |train| puts train }
   end
   
   def stations_with_index
@@ -114,17 +112,21 @@ class Railway
   def trains_with_index
     puts "Количество поездов: #{(CargoTrain.count || 0) + (PassengerTrain.count || 0)}"
     
-    trains.each_with_index { |train, index| puts " #{index} - №#{train}"}
+    trains.each_with_index do |train, index|
+      puts " #{index} - #{train}"
+      puts '    вагоны:'
+      train.each_wagon { |wagon| puts wagon }
+    end
   end
 
   def routes_with_index
     puts "Количество маршрутов: #{Route.count}"
     
-    routes.each_with_index { |route, index| puts "№#{index} - #{route}"}
+    routes.each_with_index { |route, index| puts "#{index} - #{route}"}
   end
 
   def wagons_with_index
-    wagons.each_with_index { |wagon, index| puts " #{index} - №#{wagon}"}
+    wagons.each_with_index { |wagon, index| puts " #{index}: #{wagon}"}
   end
 
   def train_by_index(index)

@@ -33,7 +33,7 @@ class Menu
     puts "3. Создать маршрут"
     puts "4. Создать вагон"
     puts "5. Список станций "
-    puts "6. Список поездов "
+    puts "6. Список поездов с вагонами"
     puts "7. Список маршрутов"
     puts "8. Список вагонов"
     puts "9. Добавить промежуточную станцию в маршрут"
@@ -127,7 +127,7 @@ class Menu
       railway.create_passenger_wagon(wagon_number, number_of_places: number_of_places)
     elsif type == 1
       puts 'Введите объем, который должен быть у создаваемого вагона (от 20 до 150 м*3):'
-      whole_volume = gets.chomp
+      whole_volume = gets.chomp.to_i
       # raise 'не тот объем' if whole_volume < 20 || whole_volume > 150
       railway.create_cargo_wagon(wagon_number, whole_volume: whole_volume)
     else raise 'Введен неправильный индекс при выборе типа вагона'

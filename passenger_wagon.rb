@@ -16,7 +16,7 @@ class PassengerWagon < Wagon
     index = number_place(index)
     raise 'Неправильное место' if index > number_of_places
     
-    if @places[index] == false
+    unless @places[index]
       @places[index] = true
     else
       raise 'Это место уже занято. Выберите другое'
@@ -32,15 +32,15 @@ class PassengerWagon < Wagon
   end
 
   def free_places
-    places.select { |place| place == false }
+    places.select { |place| !place }
   end
   
   def booked_places
-    places.select { |place| place == true }
+    places.select { |place| place }
   end
   
   def to_s
-    "Пассажирский вагон №#{number}"
+    "     - пассажирский вагон №#{number}, свободных мест в вагоне: #{number_free_places}, занятых мест: #{number_booked_places}"
   end
   
   private
