@@ -34,13 +34,10 @@ class Train
   def stop
     self.speed = 0
   end
-
-  def unhook_last_wagon
-    wagons.pop if speed == 0 && wagons.size > 0
-  end
-
+  
+  
   def unhook_wagon(index)
-    wagons.delete_at(index) if speed == 0 && wagons > 0
+    wagons.delete_at(index) if speed == 0
   end
   
   def take_route(route)

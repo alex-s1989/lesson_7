@@ -2,13 +2,12 @@ require_relative 'wagon'
 
 class PassengerWagon < Wagon
   
-  attr_reader :number_of_places, :booked_place, :places
+  attr_reader :number_of_places, :places
   
   def post_initialize(args)
     @places = []
     @number_of_places = args[:number_of_places]
-    @booked_place = 0
-
+    
     init_places
   end
   
@@ -45,7 +44,6 @@ class PassengerWagon < Wagon
   
   private
   
-  attr_writer :number_of_places, :booked_place
   
   def init_places
     @places = Array.new(number_of_places, false)

@@ -214,7 +214,7 @@ class Menu
     puts 'Введите индекс поезда, которому нужно добавить вагон:'
     train_index = gets.chomp.to_i
   
-    railway.wagons_with_index
+    railway.free_wagons_with_index
     puts 'Введите индекс вагона для добавления к поезду:'
     wagon_index = gets.chomp.to_i
   

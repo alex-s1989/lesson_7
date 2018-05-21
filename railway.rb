@@ -71,12 +71,17 @@ class Railway
   def attach_wagon(train_index, wagon_index)
     train = train_by_index(train_index)
     wagon = wagon_by_index(wagon_index)
-    train.attach_wagon(wagon)
+    if trains.find { |train| train.wagons.find { |wag| wag == wagon} }
+      puts "  -данный вагон занят, он уже прицеплен к поезду №#{train.train_number}"
+    else train.attach_wagon(wagon)
+      puts "  -вагон №#{wagon.number} успешно прицеплен к составу поезда №#{train.train_number}"
+    end
   end
   
   def unhook_wagon(train_index, wagon_index)
     train = train_by_index(train_index)
     train.unhook_wagon(wagon_index)
+    puts "  -вагон успешно отцеплен от состава поезда №#{train.train_number}"
   end
 
   def move_ahead(train_index)
@@ -131,6 +136,14 @@ class Railway
     wagons.each_with_index { |wagon, index| puts " #{index}: #{wagon}"}
   end
 
+  def free_wagons
+    wagons.reject { |wagon| trains.find { |train| train.wagons.find { |wag| wag == wagon} } }
+  end
+  
+  def free_wagons_with_index
+     free_wagons.each_with_index { |wagon, index| puts " #{index}: #{wagon}"}
+  end
+  
   def train_by_index(index)
     trains[index]
   end
@@ -138,11 +151,13 @@ class Railway
   def take_places(wagon_index, index)
     wagon = wagon_by_index(wagon_index)
     wagon.take_places(index)
+    puts "  -место №#{index} успешно забронировано в вагоне №#{wagon.number} "
   end
 
   def take_volume(wagon_index, volume)
     wagon = wagon_by_index(wagon_index)
     wagon.take_volume(volume)
+    puts "  -груз объемом #{volume} м*3 успешно помещен в вагон4 №#{wagon.number} "
   end
   
   private
